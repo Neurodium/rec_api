@@ -12,7 +12,11 @@ def home():
 @app.route('/api/<user_id>')
 def prediction(user_id):
     # return prediction in json
-    return jsonify(user=user_id, pred=distance_nearest(user_id, articles_df, model))
+    try:
+        pred = distance_nearest(user_id, articles_df, model)
+        return jsonify(user=user_id, pred=pred)
+    except:
+        return jsonify(user=user_id, pred={0: 'Incorrect User ID'})
 
 
 # to run the app in a docker and access to it
