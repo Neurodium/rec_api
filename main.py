@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from model import predict_articles, articles_df, model
+from model import distance_nearest, articles_df, model
 import os
 
 app = Flask(__name__)
@@ -12,7 +12,7 @@ def home():
 @app.route('/api/<user_id>')
 def prediction(user_id):
     # return prediction in json
-    return jsonify(user=user_id, pred=predict_articles(model, articles_df, user_id))
+    return jsonify(user=user_id, pred=distance_nearest(user_id, articles_df, model))
 
 
 # to run the app in a docker and access to it
