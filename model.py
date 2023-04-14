@@ -10,8 +10,18 @@ __version__ = "0.2.0"
 
 articles_df = pd.read_csv('article.csv', index_col=0)
 
+best_articles = pd.read_csv('best_articles.csv', index_col=0)
+
 with open(model_filename, 'rb') as file:
     model = pickle.load(file)
+
+
+def get_best_articles():
+    dict_best_art = {}
+    articles = best_articles['article_id'].sample(5)
+    for article in articles:
+        dict_best_art[article] = 0
+    return dict_best_art
 
 
 def get_user_articles(user_id, articles_df):

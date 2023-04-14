@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from model import distance_nearest, articles_df, model
+from model import distance_nearest, articles_df, model, get_best_articles
 import os
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def prediction(user_id):
         pred = distance_nearest(user_id, articles_df, model)
         return jsonify(user=user_id, pred=pred)
     except:
-        return jsonify(user=user_id, pred={0: 'Incorrect User ID'})
+        return jsonify(user=user_id, pred=get_best_articles())
 
 
 # to run the app in a docker and access to it
